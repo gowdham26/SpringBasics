@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- load the properties file-->
+    <context:property-placeholder location="classpath:car.properties, classpath:bike.properties"/>
+
+    <!-- beans with setter injections-->
+    <bean id="car1"
+          class="com.gowdham.springdemo.xmlconfigexamples.VehicleBean">
+        <property name="modelName" value="${car1.modelName}"/>
+        <property name="companyName" value="${car1.companyName}"/>
+        <property name="wheels" value="${car1.wheels}"/>
+    </bean>
+    <bean id="bike1"
+          class="com.gowdham.springdemo.xmlconfigexamples.VehicleBean" scope="prototype">
+        <property name="modelName" value="${bike1.modelName}"/>
+        <property name="companyName" value="${bike1.companyName}"/>
+        <property name="wheels" value="${bike1.wheels}"/>
+    </bean>
+
+    <!-- beans with constructor based injections-->
+    <bean id="myCar"
+          class="com.gowdham.springdemo.xmlconfigexamples.Car">
+        <constructor-arg ref="car1"/>
+    </bean>
+    <bean id="myBike"
+          class="com.gowdham.springdemo.xmlconfigexamples.Bike" scope="prototype">
+        <constructor-arg ref="bike1"/>
+    </bean>
+
+    <!-- beans with init and destroy methods-->
+    <bean id="myCycle"
+          class="com.gowdham.springdemo.xmlconfigexamples.Cycle"
+          init-method="startUp"
+          destroy-method="shutDown"
+    />
+</beans>
